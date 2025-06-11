@@ -11,8 +11,6 @@
 
 *Leveraging cutting-edge machine learning and natural language processing to combat spam with unprecedented accuracy*
 
-[🚀 **Live Demo**](https://your-app-link.streamlit.app) | [📊 **View Results**](#-model-evaluation) | [🔧 **Quick Start**](#-quick-start)
-
 ---
 
 </div>
@@ -35,15 +33,29 @@ This state-of-the-art spam detection system combines **13 rigorously tested mach
 <div align="center">
 
 ### 📱 **Interactive Dashboard**
+
+![Screenshot 2025-06-12 000908](https://github.com/user-attachments/assets/5ec641b2-bee2-4466-8a93-1991bd2b30da)
+
 *Real-time spam detection interface*
 
 ### 📈 **Performance Analytics**
-*Comprehensive model evaluation and comparison*
+
+![Screenshot 2025-06-12 000932](https://github.com/user-attachments/assets/c9ff05a2-38da-478c-9ab8-b9254541504e)
+
+*Spam detection with confidence scores*
 
 ### 🔍 **Data Insights**
-*Word clouds and feature analysis*
 
-*📸 Screenshots and interactive demos will be added here*
+![image](https://github.com/user-attachments/assets/774c6ef0-ce79-4f7d-a47a-1a287528833c)
+
+*Processed text (transformed after nlp operations on which model makes predicction)*
+
+### 📸 **Working demo**
+
+![spam](https://github.com/user-attachments/assets/e6aad036-c1f7-4b69-a2ff-c0c1207c5286)
+
+*One example each of spam and ham have been tested in this demo*
+
 
 </div>
 
@@ -86,8 +98,8 @@ This state-of-the-art spam detection system combines **13 rigorously tested mach
 
 ### 📊 **Comprehensive Analytics**
 - **Performance Dashboards** with live metrics
-- **Confusion Matrix** visualizations
-- **ROC Curves** and precision-recall analysis
+- **Confusion Matrix** 
+- **Accuracy and Precision** analysis
 - **Feature Importance** insights
 
 </td>
@@ -163,23 +175,21 @@ Git           │ Version control
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/intelligent-spam-detection.git
-cd intelligent-spam-detection
+git clone https://github.com/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION.git
+cd MACHINE-LEARNING-MODEL-IMPLEMENTATION
 
 # 2️⃣ Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # 3️⃣ Install dependencies
-pip install streamlit nltk scikit-learn joblib pandas numpy
+pip install -r requirements.txt
 
 # 4️⃣ Download NLTK resources
 python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
 
-# 5️⃣ Ensure model files are present
-# Place your trained model files in the project directory:
-# - vectorizer.joblib (TF-IDF vectorizer)
-# - model_mnb.joblib (Multinomial Naive Bayes model)
+# 5️⃣ Run the application
+streamlit run app.py
 ```
 
 ### **🎯 Launch Options**
@@ -199,54 +209,13 @@ streamlit run app.py
 
 **📓 Jupyter Notebook**  
 ```bash
-jupyter notebook spam_detection.ipynb
+jupyter notebook
 ```
 *Interactive development environment*
 
 </td>
 </tr>
 </table>
-
-### **💻 Code Example**
-
-```python
-import joblib
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
-import nltk
-
-# Load trained models
-tfidf = joblib.load('vectorizer.joblib')
-mnb = joblib.load('model_mnb.joblib')
-
-# Text preprocessing function
-def transform_text(text):
-    ps = PorterStemmer()
-    text = text.lower()
-    text = nltk.word_tokenize(text)
-    
-    # Remove non-alphanumeric characters
-    y = [i for i in text if i.isalnum()]
-    
-    # Remove stopwords and punctuation
-    y = [i for i in y if i not in stopwords.words('english')]
-    
-    # Apply stemming
-    y = [ps.stem(i) for i in y]
-    
-    return " ".join(y)
-
-# Real-time prediction
-message = "URGENT: Claim your $1000 prize now! Click here!"
-transformed_message = transform_text(message)
-vector_input = tfidf.transform([transformed_message])
-result = mnb.predict(vector_input)[0]
-confidence = mnb.predict_proba(vector_input)[0]
-
-print(f"🎯 Prediction: {'SPAM' if result == 1 else 'HAM'}")
-print(f"📊 Spam Confidence: {confidence[1]:.2%}")
-print(f"📊 Ham Confidence: {confidence[0]:.2%}")
-```
 
 ---
 
@@ -271,11 +240,12 @@ Based on extensive testing across 13 different machine learning algorithms:
 | 9️⃣ | **Bagging Classifier** | **92.6%** | **67.1%** | 🔄 Available |
 | 🔟 | **Gradient Boosting** | **92.2%** | **64.7%** | 🔄 Available |
 
-### **📈 Model Selection Justification**
-
-Despite other algorithms achieving higher accuracy scores, **Multinomial Naive Bayes (MNB)** was selected as the deployed model after comprehensive visual analysis and prediction comparison. During the evaluation phase, predictions from multiple models (KNN, Stacked, Voting, Extra Trees, etc.) were compared against actual ground truth labels. **MNB consistently provided the most accurate and reliable classification of spam messages**, demonstrating superior practical performance beyond raw accuracy metrics.
 
 ### **🎯 Algorithm Details**
+<table>
+<tr>
+<td>   
+    
 - **BnB**: Bernoulli Naive Bayes
 - **ETC**: Extra Trees Classifier (n_estimators=50)
 - **Voting**: Ensemble of SVC, MNB, and ETC
@@ -289,10 +259,15 @@ Despite other algorithms achieving higher accuracy scores, **Multinomial Naive B
 - **DT**: Decision Tree Classifier (max_depth=5)
 - **AdaBoost**: AdaBoost Classifier (n_estimators=50)
 - **GNB**: Gaussian Naive Bayes
+    
+</td>    
+</tr>
+
+</table>
 
 *Current deployment uses **Multinomial Naive Bayes** for optimal balance of real-world accuracy, computational efficiency, and consistent spam detection performance.*
 
-</div>
+
 
 ### **📈 Advanced Metrics**
 
@@ -319,11 +294,50 @@ Despite other algorithms achieving higher accuracy scores, **Multinomial Naive B
 </tr>
 </table>
 
+<table>
+<tr>
+<td>
+    
 ### **🔍 Evaluation Tools**
 - **Confusion Matrix** → Visual accuracy breakdown
-- **ROC Curve Analysis** → Threshold optimization
-- **Feature Importance** → Key spam indicators
 - **Cross-Validation** → Robust performance validation
+  
+</td>
+</tr>
+</table>
+
+
+## **🎯 Model Selection Justification**
+
+### Why Multinomial Naive Bayes Over Higher-Scoring Models?
+
+Despite models like **BernoulliNB, ExtraTrees**, and **KNN** yielding higher accuracy and precision in numerical evaluation, a **manual visual inspection** using ground truth revealed the following:
+
+### 🔍 Key Findings:
+
+<table>
+<tr>
+<td>
+    
+* 🕵️ MultinomialNB predicted true spam messages with higher reliability — especially on phrases like "You've won ₹1,00,000…", "KYC pending...", or "FREE recharge...".
+* ❌ Other models tended to misclassify some clear spam messages as "Not Spam" — introducing critical false negatives.
+* ✅ This makes MultinomialNB more robust in real-world, high-risk scenarios where missing a spam can be more dangerous than a false positive
+
+</td>
+</tr>
+</table>
+
+### 🧠 Conclusion:
+
+🔍 *The choice of MultinomialNB was made after comparing model predictions with actual human-labeled data, confirming its better alignment with ground truth across diverse spam types. In spam detection, reliability in catching actual spam messages outweighs marginal improvements in overall accuracy metrics.*
+
+### ⚡ Evidence
+
+![Screenshot 2025-06-11 232651](https://github.com/user-attachments/assets/5b9ccabf-b72f-4a18-9b83-ea2571812447)
+
+*Sms spam detection results with ground truth*
+
+</div>
 
 ---
 
@@ -381,8 +395,8 @@ Despite other algorithms achieving higher accuracy scores, **Multinomial Naive B
 We welcome contributions from the community! Whether you're a beginner or expert, there's a place for you.
 
 [![Contributors](https://img.shields.io/badge/Contributors-Welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Issues](https://img.shields.io/badge/Issues-Open-blue.svg)](https://github.com/yourusername/intelligent-spam-detection/issues)
-[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-green.svg)](https://github.com/yourusername/intelligent-spam-detection/pulls)
+[![Issues](https://img.shields.io/badge/Issues-Open-blue.svg)](https://github.com/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION/issues)
+[![Pull Requests](https://img.shields.io/badge/PRs-Welcome-green.svg)](https://github.com/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION/pulls)
 
 </div>
 
@@ -390,7 +404,7 @@ We welcome contributions from the community! Whether you're a beginner or expert
 
 ```bash
 # 1️⃣ Fork & Clone
-git clone https://github.com/yourusername/intelligent-spam-detection.git
+git clone https://github.com/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION.git
 
 # 2️⃣ Create Feature Branch  
 git checkout -b feature/amazing-enhancement
@@ -417,22 +431,20 @@ git push origin feature/amazing-enhancement
 
 ## 🏆 **Acknowledgments**
 
-<div align="center">
+<div align="left">
 
 ### **🙏 Special Thanks**
 
 **🎓 Academic Partners**
-- [UCI Machine Learning Repository](https://archive.ics.uci.edu/) → Dataset provision
-- [NLTK Project](https://www.nltk.org/) → NLP toolkit excellence
+
+ *[ UCI Machine Learning Repository](https://archive.ics.uci.edu/) → Dataset provision
+ * [NLTK Project](https://www.nltk.org/) → NLP toolkit excellence
+ * [CampusX](https://www.youtube.com/watch?v=YncZ0WwxyzU&t=5299s) → Prject Reference
 
 **🛠️ Technical Partners**  
-- [Scikit-learn Team](https://scikit-learn.org/) → ML framework
-- [Streamlit](https://streamlit.io/) → Web framework innovation
 
-**🌟 Community Support**
-- Open Source Contributors → Continuous improvement
-- Beta Testers → Quality assurance
-- Feedback Providers → User experience enhancement
+ * [Scikit-learn Team](https://scikit-learn.org/) → ML framework
+ * [Streamlit](https://streamlit.io/) → Web framework innovation
 
 </div>
 
@@ -470,21 +482,20 @@ copies or substantial portions of the Software.
 
 ### **Let's Build Something Amazing Together** 🚀
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/yourprofile)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/yourusername)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akkisahu176)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akhil-sahu-569a111ba)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:akkisahu176@gmail.com)
 
 ---
 
 ### **📊 Project Statistics**
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/intelligent-spam-detection?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/intelligent-spam-detection?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/intelligent-spam-detection?style=social)
+![GitHub stars](https://img.shields.io/github/stars/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION?style=social)
+![GitHub forks](https://img.shields.io/github/forks/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/akkisahu176/MACHINE-LEARNING-MODEL-IMPLEMENTATION?style=social)
 
 **⭐ If this project helped you, please consider giving it a star!**
 
-*Made with ❤️ by the Intelligent Spam Detection Team*
+*Made with ❤️ by Akhil Sahu*
 
 </div>
