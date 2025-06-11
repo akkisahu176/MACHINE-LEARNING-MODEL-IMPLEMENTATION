@@ -1,10 +1,16 @@
 import streamlit as st
 import string
-from nltk.corpus import stopwords
 import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 import joblib
 import time
+
+
+
 
 # Configure page
 st.set_page_config(
